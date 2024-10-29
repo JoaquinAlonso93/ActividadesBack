@@ -58,7 +58,7 @@ class ProductManager {
 // Crear una instancia de ProductManager
 const productManager = new ProductManager();
 
-// 1. Probar `addProduct`
+// Prueba `addProduct`
 console.log("Prueba de `addProduct`:");
 productManager.addProduct({
     title: "Producto 1",
@@ -87,11 +87,11 @@ productManager.addProduct({
     stock: 20,
 }); // Debe mostrar un mensaje de error
 
-// 2. Probar `getProducts`
+// Prueba `getProducts`
 console.log("\nPrueba de `getProducts`:");
 productManager.getProducts(); // Debe mostrar los productos añadidos
 
-// 3. Probar `getProductById`
+// Prueba `getProductById`
 console.log("\nPrueba de `getProductById`:");
 
 // Debe encontrar el producto con id 1
