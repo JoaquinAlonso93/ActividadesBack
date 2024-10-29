@@ -42,27 +42,73 @@ class ProductManager {
         }
         return product; // devuelve el producto buscado por id
     }
+
+    deleteProductById(id) {
+        const index = this.products.findIndex(prod => prod.id === id);
+        if (index === -1) {
+            return console.log(`Producto no encontrado con el id ${id}`);
+        }
+        const deletedProduct = this.products.splice(index, 1);
+        console.log(`Producto con id ${deletedProduct[0].id} ha sido eliminado.`); // Mensaje de confirmación
+    }
 }
 
-// Prueba
+// Pruebas
 
+// Crear una instancia de ProductManager
 const productManager = new ProductManager();
 
-const newProduct = {
-    title: "Cámara Digital",
-    description: "Cámara digital de alta resolución con zoom óptico.",
-    price: 499.99,
-    thumbnail: "url_camara.jpg", 
-    code: "camara123",
-    stock: 50
-};
+// 1. Probar `addProduct`
+console.log("Prueba de `addProduct`:");
+productManager.addProduct({
+    title: "Producto 1",
+    description: "Descripción del producto 1",
+    price: 100,
+    thumbnail: "url1",
+    code: "P001",
+    stock: 10,
+}); // Debe agregar el producto
 
-// Agregar el nuevo producto
-productManager.addProduct(newProduct);
+productManager.addProduct({
+    title: "Producto 2",
+    description: "Descripción del producto 2",
+    price: 200,
+    thumbnail: "url2",
+    code: "P002",
+    stock: 5,
+}); // Debe agregar el producto
 
-// Obtener todos los productos
-productManager.getProducts();
+productManager.addProduct({
+    title: "Producto 1", // Mismo código
+    description: "Descripción duplicada",
+    price: 150,
+    thumbnail: "url1",
+    code: "P001",
+    stock: 20,
+}); // Debe mostrar un mensaje de error
 
-// Probar obtener un producto por ID
-console.log(productManager.getProductById(1)); // Debería mostrar el producto agregado
-console.log(productManager.getProductById(999)); // Debería mostrar que no se encontró el producto
+// 2. Probar `getProducts`
+console.log("\nPrueba de `getProducts`:");
+productManager.getProducts(); // Debe mostrar los productos añadidos
+
+// 3. Probar `getProductById`
+console.log("\nPrueba de `getProductById`:");
+
+// Debe encontrar el producto con id 1
+console.log(productManager.getProductById(1));
+
+// Debe mostrar un mensaje de error
+console.log(productManager.getProductById(3));
+
+//Prueba `deleteProductById`
+console.log("\nPrueba de `deleteProductById`:");
+
+// Debe eliminar el producto con id 1
+productManager.deleteProductById(1);
+
+// Debe mostrar un mensaje de error
+productManager.deleteProductById(3);
+
+// Comprobar productos restantes
+console.log("\nProductos restantes después de eliminar:");
+productManager.getProducts(); // Debe mostrar el producto con id 2
